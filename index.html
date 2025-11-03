@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>张裕晨 - 个人主页</title>
+  <meta name="description" content="深度学习、计算机视觉、ROS。中国矿业大学智能检测与模式识别研究中心。" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: rgba(15, 23, 36, 0.7);
+      --muted: #94a3b8;
+      --accent: #7c3aed;
+      --accent-light: #a78bfa;
+      --text: #f1f5f9;
+      --maxw: 1100px;
+      --radius: 12px;
+      --transition: all 0.2s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #071021 0%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    
+    /* 头部样式 */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    /* 让 header 中的 avatar 内的 img 填满容器并裁剪，保留容器圆角 */
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: inherit;
+    }
+    
+    .brand-text h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    
+    .brand-text p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--text);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: var(--transition);
+    }
+    
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+    }
+    
+    /* 主要内容区域 */
+    main {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2rem;
+    }
+    
+    /* 卡片样式 */
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transition: var(--transition);
+    }
+    
+    .card:hover {
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 英雄区域 */
+    .hero {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .hero .meta {
+      flex: 1;
+    }
+    
+    .hero h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+    
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem 0.875rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      transition: var(--transition);
+    }
+    
+    .tag:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+    
+    .cta {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      color: white;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--muted);
+    }
+    
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+    }
+    
+    /* 部分标题 */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 2px;
+    }
+    
+    /* 项目网格 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .project {
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: var(--transition);
+    }
+    
+    .project:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    /* 侧边栏 */
+    aside .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    /* 让 profile-avatar 内的 img 填满容器并裁剪，保留容器圆角 */
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: inherit;
+    }
+    
+    .profile h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .profile p {
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .stat {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      text-align: center;
+      flex: 1;
+    }
+    
+    .stat-value {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .contact-info {
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    
+    .socials {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    
+    .socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      /* 使用 min-width + padding 以容纳完整文字（GitHub / 微信 / 邮箱） */
+      min-width: 72px;
+      height: 40px;
+      padding: 0 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      text-decoration: none;
+      color: var(--muted);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    
+    .socials a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+    
+    /* 表单 */
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    input, textarea {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.75rem;
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+    }
+    
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+    
+    /* 隐藏卡片 */
+    .hidden {
+      display: none;
+    }
+    
+    /* 页脚 */
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      
+      aside {
+        order: 2;
+      }
+      
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .cta {
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .container {
+        padding: 1.5rem 1rem;
+      }
+    }
+    
+    /* 动画效果 */
+    .fade-in {
+      animation: fadeIn 0.6s ease both;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    
+    /* 简化滚动条 */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="avatar"><img src='D:\My_web\figures\tou.jpg' alt="Avatar"></div>
+        <div class="brand-text">
+          <h1>张裕晨</h1>
+          <p>中国矿业大学 | 深度学习与计算机视觉</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#about">关于</a>
+        <a href="#projects">项目</a>
+        <a href="#contact">联系</a>
+        <button class="theme-toggle" id="themeToggle">切换主题</button>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <div class="card hero fade-in">
+          <div class="meta">
+            <h2>你好，我是张裕晨 👋</h2>
+            <p>我专注于开发基于像素偏移的多图像超分辨率模型，在深度学习与计算机视觉领域有深入研究。</p>
+            <div class="tags">
+              <span class="tag">深度学习</span>
+              <span class="tag">计算机视觉</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">遥感图像</span>
+
+            </div>
+            <div class="cta">
+              <a class="btn btn-primary" href="https://github.com/Post-b/mine" target="_blank">
+                <span>查看项目</span>
+              </a>
+
+            </div>
+          </div>
+        </div>
+
+        <div id="about" class="card fade-in" style="margin-top: 2rem;">
+          <h2 class="section-title">关于我</h2>
+          <p style="color: var(--muted); line-height: 1.7;">我本科专业是人工智能，项目依托于中国矿业大学智能检测与模式识别研究中心，涉及多图像超分辨率重建、软件设计，自己编写代码实现刃边法测MTF。本科专业涉及深度学习、计算机视觉、嵌入式、自主移动机器人。</p>
+        </div>
+
+        <div id="projects" class="card fade-in" style="margin-top: 2rem;">
+          <h2 class="section-title">精选项目</h2>
+          <div class="grid">
+            <div class="project">
+              <h3>基于像素偏移的多图像超分辨率模型</h3>
+              <p>基于 EDSR 改进的多分支融合结构，用于遥感图像超分。</p>
+            </div>
+            <div class="project">
+              <h3>刃边法测MTF</h3>
+              <p>依托MTF计算原理编写MTF计算代码，可以生成MTF曲线并记录MTF50、MTF30、MTF20的数据。</p>
+            </div>
+            <div class="project">
+              <h3>基于PyQt5的超分辨率软件</h3>
+              <p>使用PyQt5开发的图形界面，方便用户使用模型超分图像，支持调整参数并可视化结果。</p>
+            </div>
+            <div class="project">
+              <h3>研究笔记 & 博客</h3>
+              <p>记录学习与研究过程，便于他人复现与学习。</p>
+              <a href="https://github.com/Post-b/CUMT_AI_ROS" target="_blank">查看笔记</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card fade-in" style="margin-top: 2rem;">
+          <h2 class="section-title">技能与工具</h2>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">C++</span>
+            <span class="tag">ENVI</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">CUDA</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">ROS</span>
+            <span class="tag">Git</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="card fade-in profile">
+          <div class="profile-avatar"><img src='D:\My_web\figures\tou.jpg' alt="Avatar"></div>
+          <h3>张裕晨</h3>
+          <p>中国矿业大学</p>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-value">2</div>
+              <div class="stat-label">项目</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">1</div>
+              <div class="stat-label">论文</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">1</div>
+              <div class="stat-label">专利</div>
+            </div>
+          </div>
+
+          <div class="contact-info">
+            <div class="contact-item">
+              <span>📧</span>
+              <span>Yuchen_o@163.com</span>
+            </div>
+            <div class="contact-item">
+              <span>📱</span>
+              <span>190-3709-5309</span>
+            </div>
+            <div class="contact-item">
+              <span>📍</span>
+              <span>徐州 / 江苏</span>
+            </div>
+          </div>
+
+          <div class="socials">
+            <a href="https://github.com/Post-b/mine" target="_blank" title="GitHub" aria-label="GitHub">
+              <span>GitHub</span>
+            </a>
+            <a href="#" title="微信" aria-label="微信">
+              <span>微信</span>
+            </a>
+            <a href="mailto:Yuchen_o@163.com" title="邮箱" aria-label="邮箱">
+              <span>邮箱</span>
+            </a>
+          </div>
+
+          <div style="margin-top: 1.5rem; text-align: center;">
+            <a class="btn btn-primary" href="#contact">留下信息</a>
+          </div>
+        </div>
+
+        <div id="contact" class="card hidden" style="margin-top: 1.5rem;">
+          <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">留言联系</h4>
+          <form id="contactForm" action="https://formspree.io/f/mnnollrd" method="POST">
+            <div class="form-row">
+              <input type="text" name="name" placeholder="你的名字" required />
+              <input type="email" name="email" placeholder="邮箱地址" required />
+              <textarea name="message" placeholder="请写下你想说的话..." required></textarea>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">发送</button>
+                <button type="button" class="btn btn-ghost" onclick="document.getElementById('contactForm').reset()">重置</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> 张裕晨 - 中国矿业大学
+    </footer>
+  </div>
+
+  <script>
+    // 设置年份
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 主题切换
+    const themeToggle = document.getElementById('themeToggle');
+    let dark = true;
+    themeToggle.addEventListener('click', () => {
+      dark = !dark;
+      if (!dark) {
+        document.documentElement.style.setProperty('--bg', '#f8fafc');
+        document.documentElement.style.setProperty('--card', 'rgba(255, 255, 255, 0.8)');
+        document.documentElement.style.setProperty('--muted', '#64748b');
+        document.documentElement.style.setProperty('--text', '#0f172a');
+        document.body.style.background = 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)';
+        themeToggle.textContent = '切换深色';
+      } else {
+        document.documentElement.style.setProperty('--bg', '#0f1724');
+        document.documentElement.style.setProperty('--card', 'rgba(15, 23, 36, 0.7)');
+        document.documentElement.style.setProperty('--muted', '#94a3b8');
+        document.documentElement.style.setProperty('--text', '#f1f5f9');
+        document.body.style.background = 'linear-gradient(135deg, #071021 0%, #0f172a 100%)';
+        themeToggle.textContent = '切换浅色';
+      }
+    });
+
+    // 表单提交
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
+      const name = formData.get('name').trim();
+      const email = formData.get('email').trim();
+      const message = formData.get('message').trim();
+
+      if (!name || !email || !message) {
+        alert('请填写姓名、邮箱和消息内容。');
+        return;
+      }
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          alert('发送成功，谢谢！我会尽快回复。');
+          contactForm.reset();
+        } else {
+          alert('发送失败，请稍后重试或直接发送邮件至 Yuchen_o@163.com');
+        }
+      } catch (error) {
+        alert('提交时出错：' + error.message + '。请检查网络或直接发邮件至 Yuchen_o@163.com');
+      }
+    });
+
+    // 当任何指向 #contact 的链接被点击时，显示留言卡片
+    function showContactAndFocus(e) {
+      e.preventDefault();
+      const target = document.getElementById('contact');
+      if (!target) return;
+      
+      if (target.classList.contains('hidden')) {
+        target.classList.remove('hidden');
+      }
+      
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        const nameInput = document.querySelector('#contactForm input[name="name"]');
+        if (nameInput) nameInput.focus();
+      }, 300);
+    }
+
+    document.querySelectorAll('a[href="#contact"]').forEach(a => {
+      a.addEventListener('click', showContactAndFocus);
+    });
+
+    // 如果页面加载时 URL 包含 #contact，则显示表单并聚焦
+    if (window.location.hash === '#contact') {
+      const target = document.getElementById('contact');
+      if (target && target.classList.contains('hidden')) {
+        target.classList.remove('hidden');
+        setTimeout(() => {
+          const nameInput = document.querySelector('#contactForm input[name="name"]');
+          if (nameInput) nameInput.focus();
+        }, 300);
+      }
+    }
+  </script>
+</body>
+</html>
