@@ -8,15 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f1724;
-      --card: rgba(15, 23, 36, 0.7);
-      --muted: #94a3b8;
-      --accent: #7c3aed;
-      --accent-light: #a78bfa;
-      --text: #f1f5f9;
+      --bg: #f8fafc;
+      --card: rgba(255, 255, 255, 0.8);
+      --muted: #64748b;
+      --accent: #1e3264;
+      --accent-light: #2a4a8c;
+      --text: #0f172a;
       --maxw: 1100px;
       --radius: 12px;
       --transition: all 0.2s ease;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 6px 25px rgba(0, 0, 0, 0.12);
     }
     
     * {
@@ -31,7 +33,7 @@
     
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background: linear-gradient(135deg, #071021 0%, #0f172a 100%);
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -71,7 +73,7 @@
       font-weight: 700;
       color: white;
       font-size: 1.5rem;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+      box-shadow: 0 4px 12px rgba(30, 50, 100, 0.3);
     }
 
     /* 让 header 中的 avatar 内的 img 填满容器并裁剪，保留容器圆角 */
@@ -129,7 +131,7 @@
     
     .theme-toggle {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       padding: 0.5rem 0.75rem;
       border-radius: 8px;
       color: var(--muted);
@@ -139,7 +141,7 @@
     }
     
     .theme-toggle:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
       color: var(--text);
     }
     
@@ -156,13 +158,13 @@
       backdrop-filter: blur(10px);
       border-radius: var(--radius);
       padding: 1.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: var(--shadow);
       transition: var(--transition);
     }
     
     .card:hover {
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow-hover);
     }
     
     /* 英雄区域 */
@@ -197,7 +199,7 @@
     }
     
     .tag {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
       padding: 0.5rem 0.875rem;
       border-radius: 20px;
       font-size: 0.85rem;
@@ -206,7 +208,7 @@
     }
     
     .tag:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.08);
       color: var(--text);
     }
     
@@ -232,22 +234,22 @@
     .btn-primary {
       background: linear-gradient(90deg, var(--accent), var(--accent-light));
       color: white;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+      box-shadow: 0 4px 12px rgba(30, 50, 100, 0.3);
     }
     
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(124, 58, 237, 0.4);
+      box-shadow: 0 6px 16px rgba(30, 50, 100, 0.4);
     }
     
     .btn-ghost {
       background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       color: var(--muted);
     }
     
     .btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
       color: var(--text);
     }
     
@@ -281,15 +283,33 @@
     .project {
       padding: 1.25rem;
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-light));
+      opacity: 0;
       transition: var(--transition);
     }
     
     .project:hover {
       transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .project:hover::before {
+      opacity: 1;
     }
     
     .project h3 {
@@ -324,7 +344,7 @@
       font-weight: 700;
       color: white;
       margin-bottom: 1rem;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+      box-shadow: 0 4px 12px rgba(30, 50, 100, 0.3);
     }
 
     /* 让 profile-avatar 内的 img 填满容器并裁剪，保留容器圆角 */
@@ -354,11 +374,12 @@
     }
     
     .stat {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.5);
       padding: 0.75rem 1rem;
       border-radius: 10px;
       text-align: center;
       flex: 1;
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
     
     .stat-value {
@@ -396,20 +417,20 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      /* 使用 min-width + padding 以容纳完整文字（GitHub / 微信 / 邮箱） */
       min-width: 72px;
       height: 40px;
       padding: 0 12px;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.5);
       text-decoration: none;
       color: var(--muted);
       transition: var(--transition);
       white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
     
     .socials a:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.8);
       color: var(--text);
       transform: translateY(-2px);
     }
@@ -422,8 +443,8 @@
     }
     
     input, textarea {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       padding: 0.75rem;
       border-radius: 8px;
       color: var(--text);
@@ -435,7 +456,7 @@
     input:focus, textarea:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+      box-shadow: 0 0 0 2px rgba(30, 50, 100, 0.2);
     }
     
     textarea {
@@ -461,7 +482,7 @@
       color: var(--muted);
       font-size: 0.875rem;
       padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     /* 响应式设计 */
@@ -526,16 +547,45 @@
     }
     
     ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
     }
     
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
       border-radius: 3px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 新增：徽章样式 */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      color: white;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* 新增：项目链接样式 */
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .project-link:hover {
+      color: var(--accent-light);
     }
   </style>
 </head>
@@ -543,17 +593,17 @@
   <div class="container">
     <header>
       <div class="brand">
-        <div class="avatar"><img src='figures/tou.jpg' alt="Avatar"></div>
+        <div class="avatar"><img src='figures/tou.jpg' alt="张裕晨的头像"></div>
         <div class="brand-text">
           <h1>张裕晨</h1>
-          <p>中国矿业大学 | 深度学习与计算机视觉</p>
+          <p>中国矿业大学 | 深度学习 | 计算机视觉 | ROS</p>
         </div>
       </div>
       <nav>
-        <a href="#about">关于</a>
-        <a href="#projects">项目</a>
-        <a href="#contact">联系</a>
-        <button class="theme-toggle" id="themeToggle">切换主题</button>
+        <a href="#about">关于我</a>
+        <a href="#projects">项目作品</a>
+        <a href="#contact">联系我</a>
+        <button class="theme-toggle" id="themeToggle">切换深色</button>
       </nav>
     </header>
 
@@ -561,48 +611,59 @@
       <section>
         <div class="card hero fade-in">
           <div class="meta">
-            <h2>你好，我是张裕晨 👋</h2>
-            <p>我专注于开发基于像素偏移的多图像超分辨率模型，在深度学习与计算机视觉领域有深入研究。</p>
+            <h2>你好 👋 欢迎来到我的个人主页</h2>
+            <p>我是一名专注于计算机视觉与深度学习的研究者，目前致力于开发多图像超分辨率模型。在遥感图像分析、超分辨率重建和图像质量评估方面有深入研究。</p>
             <div class="tags">
               <span class="tag">深度学习</span>
               <span class="tag">计算机视觉</span>
               <span class="tag">PyTorch</span>
               <span class="tag">遥感图像</span>
-
+              <span class="tag">超分辨率</span>
+              <span class="tag">图像质量评估</span>
             </div>
             <div class="cta">
               <a class="btn btn-primary" href="https://github.com/Post-b/mine" target="_blank">
-                <span>查看项目</span>
+                <span>探索我的项目</span>
               </a>
-
+              <a class="btn btn-ghost" href="#projects">
+                <span>了解更多</span>
+              </a>
             </div>
           </div>
         </div>
 
         <div id="about" class="card fade-in" style="margin-top: 2rem;">
           <h2 class="section-title">关于我</h2>
-          <p style="color: var(--muted); line-height: 1.7;">我本科专业是人工智能，项目依托于中国矿业大学智能检测与模式识别研究中心，涉及多图像超分辨率重建、软件设计，自己编写代码实现刃边法测MTF。本科专业涉及深度学习、计算机视觉、嵌入式、自主移动机器人。</p>
+          <p style="color: var(--muted); line-height: 1.7; margin-bottom: 1rem;">中国矿业大学人工智能专业的本科生（2023-2027），专注于深度学习与计算机视觉领域的研究与实践。</p>
+          <p style="color: var(--muted); line-height: 1.7; margin-bottom: 1rem;">我的研究依托于中国矿业大学智能检测与模式识别研究中心，主要方向包括多图像超分辨率算法、图像性能评估软件以及刃边法测量调制传递函数(MTF)。</p>
+          <p style="color: var(--muted); line-height: 1.7;">本科学习期间，我系统掌握了深度学习、计算机视觉、自然语言处理、嵌入式系统和自主移动机器人等领域的知识，并致力于将这些技术应用于解决实际问题。</p>
         </div>
 
         <div id="projects" class="card fade-in" style="margin-top: 2rem;">
           <h2 class="section-title">精选项目</h2>
           <div class="grid">
             <div class="project">
+              <span class="badge">论文研究</span>
               <h3>基于像素偏移的多图像超分辨率模型</h3>
-              <p>基于 EDSR 改进的多分支融合结构，用于遥感图像超分。</p>
+              <p>作为学生一作，开发了一种创新的多图像超分辨率算法，通过受控的半像素偏移语义对齐图像退化流程，显著提升了遥感图像的超分质量。该算法在保持图像细节和减少伪影方面表现出色。</p>
             </div>
             <div class="project">
+              <span class="badge">图像分析</span>
               <h3>刃边法测MTF</h3>
-              <p>依托MTF计算原理编写MTF计算代码，可以生成MTF曲线并记录MTF50、MTF30、MTF20的数据。</p>
+              <p>基于MTF计算原理，开发了完整的MTF计算代码，能够自动生成MTF曲线并精确计算MTF50、MTF30、MTF20等关键指标，为图像质量评估提供了可靠的量化工具。</p>
             </div>
             <div class="project">
-              <h3>基于PyQt5的超分辨率软件</h3>
-              <p>使用PyQt5开发的图形界面，方便用户使用模型超分图像，支持调整参数并可视化结果。</p>
+              <span class="badge">应用开发</span>
+              <h3>矿区遥感图像超分辨率及性能评测软件</h3>
+              <p>使用PyQt5开发了功能完善的图形界面软件，集成了超分辨率模型与性能评估功能。用户可以直观地调整参数、可视化处理结果，并获取详细的图像质量分析报告。</p>
             </div>
             <div class="project">
-              <h3>研究笔记 & 博客</h3>
-              <p>记录学习与研究过程，便于他人复现与学习。</p>
-              <a href="https://github.com/Post-b/CUMT_AI_ROS" target="_blank">查看笔记</a>
+              <span class="badge">知识分享</span>
+              <h3>研究笔记 & 技术博客</h3>
+              <p>系统整理了ROS相关课程学习与研究过程中的经验与心得，详细记录了技术实现细节与问题解决方案，为他人复现与学习提供了有价值的参考资料。</p>
+              <a class="project-link" href="https://github.com/Post-b/CUMT_AI_ROS" target="_blank">
+                <span>查看笔记</span>
+              </a>
             </div>
           </div>
         </div>
@@ -620,15 +681,18 @@
             <span class="tag">Git</span>
             <span class="tag">Linux</span>
             <span class="tag">Docker</span>
+            <span class="tag">PyQt5</span>
+            <span class="tag">MATLAB</span>
+            <span class="tag">LaTeX</span>
           </div>
         </div>
       </section>
 
       <aside>
         <div class="card fade-in profile">
-          <div class="profile-avatar"><img src='figures/tou.jpg' alt="Avatar"></div>
+          <div class="profile-avatar"><img src='figures/tou.jpg' alt="张裕晨的头像"></div>
           <h3>张裕晨</h3>
-          <p>中国矿业大学</p>
+          <p>中国矿业大学人工智能专业</p>
 
           <div class="stats">
             <div class="stat">
@@ -640,7 +704,7 @@
               <div class="stat-label">论文</div>
             </div>
             <div class="stat">
-              <div class="stat-value">1</div>
+              <div class="stat-value">2</div>
               <div class="stat-label">专利</div>
             </div>
           </div>
@@ -705,23 +769,27 @@
 
     // 主题切换
     const themeToggle = document.getElementById('themeToggle');
-    let dark = true;
+    let dark = false;
     themeToggle.addEventListener('click', () => {
       dark = !dark;
-      if (!dark) {
-        document.documentElement.style.setProperty('--bg', '#f8fafc');
-        document.documentElement.style.setProperty('--card', 'rgba(255, 255, 255, 0.8)');
-        document.documentElement.style.setProperty('--muted', '#64748b');
-        document.documentElement.style.setProperty('--text', '#0f172a');
-        document.body.style.background = 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)';
-        themeToggle.textContent = '切换深色';
-      } else {
+      if (dark) {
         document.documentElement.style.setProperty('--bg', '#0f1724');
         document.documentElement.style.setProperty('--card', 'rgba(15, 23, 36, 0.7)');
         document.documentElement.style.setProperty('--muted', '#94a3b8');
         document.documentElement.style.setProperty('--text', '#f1f5f9');
+        document.documentElement.style.setProperty('--shadow', '0 4px 20px rgba(0, 0, 0, 0.15)');
+        document.documentElement.style.setProperty('--shadow-hover', '0 6px 25px rgba(0, 0, 0, 0.2)');
         document.body.style.background = 'linear-gradient(135deg, #071021 0%, #0f172a 100%)';
         themeToggle.textContent = '切换浅色';
+      } else {
+        document.documentElement.style.setProperty('--bg', '#f8fafc');
+        document.documentElement.style.setProperty('--card', 'rgba(255, 255, 255, 0.8)');
+        document.documentElement.style.setProperty('--muted', '#64748b');
+        document.documentElement.style.setProperty('--text', '#0f172a');
+        document.documentElement.style.setProperty('--shadow', '0 4px 20px rgba(0, 0, 0, 0.08)');
+        document.documentElement.style.setProperty('--shadow-hover', '0 6px 25px rgba(0, 0, 0, 0.12)');
+        document.body.style.background = 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)';
+        themeToggle.textContent = '切换深色';
       }
     });
 
@@ -793,6 +861,4 @@
     }
   </script>
 </body>
-
 </html>
-
